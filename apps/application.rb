@@ -5,7 +5,6 @@ if ENV['BOT_ENV'] == 'development'
   require 'dotenv'
   Dotenv.load
 end
-require_relative 'commands/music'
 require_relative 'commands/tibia'
 require_relative 'commands/utilities'
 
@@ -19,5 +18,4 @@ end
 
 bot.include! Commands::Tibia
 bot.include! Commands::Utilities
-bot.include! Commands::Music
 bot.run
