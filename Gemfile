@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
+ruby '2.7.0'
 
-gem 'discordrb', git: "https://github.com/lucasmenezesds/discordrb.git", branch: 'hotfix/voice_websocket'
+gem 'discordrb'
 gem 'httparty', '~> 0.18.0'
 gem "lita-heroku-keepalive"
 
