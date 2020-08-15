@@ -1,0 +1,23 @@
+= Commands Modules
+
+[NOTE]
+All the commands listed are without the bot's prefix.
+
+== Tibia
+=== Available Commands
+
+`online` => Show a customized table with the number of players online on the world that was set.
+
+`online2` => Show a standard frequency table with the number of players online on the world that was set.
+
+`online_on <world name>` => Show a customized table with the number of players online on the world that the name was passed.
+
+`online2_on <world name>` => Show a standard frequency table with the number of players online on the world that the name was passed.
+
+`sharexp <100>` => Show the level's range to be able to share xp in a party
+
+== Utils
+
+`my_id` => return a message with you discord id on the discord's group
+
+`prune <100>` => delete the number of messages passed in the channel the command was sent
