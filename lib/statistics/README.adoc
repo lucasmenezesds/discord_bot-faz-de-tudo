@@ -1,0 +1,37 @@
+= Statistics Libs
+
+== Quantitative Frequency Distribution
+
+The `quantitative_freq_distribution.rb` is the class that have those operations.
+
+In order to "build" the frequency distribution table for the continuous quantitative variables there will be couples steps:
+
+. Decide the number of classes `K`
+.. Where `k = Math.sqrt(n).round`
+
+. Determine the Data Amplitude
+.. Where `A = Max Value - Min Value`
+
+. Determine the Class Amplitude
+.. `c = A / (k - 1)`
+.. depending on the values you are working you can round it.
+
+//. Determine the Inferior Limit of the first class IL1
+//.. `IL1 = Min Value - (c / 2)`
+
+. Determine the Superior Limit of the first class SL1
+.. `SL1 =IL1 + c`
+
+. Being that the lower limit of the second class is:
+.. `SL2 = IF2 + c`
+. Then successively all classes are being built.
+
+
+*Some definitions*
+
+*Amplitude (A)* - corresponds to the difference between the highest value and the
+lowest value of a data set;
+
+*Class amplitude (c)* - consists of the difference between the limit
+upper and lower limit of a class in a distribution of
+frequency.

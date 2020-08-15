@@ -18,6 +18,11 @@
 
 `DISCORD_PREFIX`: Prefix used before the commands for the bot.
 
+*TIBIA SETTINGS*
+
+`TIBIA_GUILD`: Your guild's name.
+
+`TIBIA_WORLD`: Your world's name.
 
 === Development Mode
 
@@ -26,4 +31,10 @@ For development it's the gem Dotenv is used, so you should run the project as fo
 $ `BOT_ENV=development bundle exec ruby apps/application.rb`
 
 == Modules
+
 The Existing Modules for the bot are:
+
+* Tibia
+* Utils
+
+link:/apps/commands#commands-modules[Read More Here!]
