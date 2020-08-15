@@ -1,0 +1,29 @@
+= Discord Bot "Faz de Tudo" ("Handyman")
+
+== Usage
+
+. Set the ENV variables
+.. Use the `env.template` as example.
+
+. Run the bot $ `ruby apps/application.rb`
+.. Or check the development mode session.
+
+=== ENV variables
+
+`BOT_ENV`: Environment that the bot is running.
+
+`DISCORD_CLIENT_ID`: Discord's Client ID.
+
+`DISCORD_TOKEN`: Bot's token
+
+`DISCORD_PREFIX`: Prefix used before the commands for the bot.
+
+
+=== Development Mode
+
+For development it's the gem Dotenv is used, so you should run the project as following:
+
+$ `BOT_ENV=development bundle exec ruby apps/application.rb`
+
+== Modules
+The Existing Modules for the bot are:
