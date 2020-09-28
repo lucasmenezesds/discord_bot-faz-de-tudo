@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 require 'discordrb'
+require_relative '../../lib/discord/discord_utils'
 require_relative '../../lib/exceptions'
 require_relative '../../lib/tibia/tibia_message_helper'
-require_relative '../../lib/tibia/tibia_utils'
-
+require_relative '../../lib/tibia/tibia_utils/tibia_utils'
 
 # rubocop:disable Style/RescueStandardError
 module Commands
@@ -14,20 +14,10 @@ module Commands
     include CustomExceptions
     include TibiaUtils
 
-    def self.who_is_online_command(event, world_name, table_type: 'custom')
-      embed_fields, players_online = TibiaUtils.online_players_table(world_name, table_type: table_type)
-
-      msg_color = TibiaMessageHelper.color_per_number(players_online)
-
-      event.channel.send_embed do |embed|
-        TibiaMessageHelper.build_embed_table(embed, embed_fields, msg_color, players_online, world_name)
-      end
-    end
-
     desc = "Show the number of Players Online on #{ENV['TIBIA_WORLD']} divided by a **CUSTOM** level's range"
     usage = "'#{ENV['DISCORD_PREFIX']}online' on a chat channel"
     command :online, { description: desc, usage: usage } do |event|
-      who_is_online_command(event, ENV['TIBIA_WORLD'])
+      TibiaUtils::Online.who_is_online_command(event, ENV['TIBIA_WORLD'])
 
     rescue CouldntRetrieveResource => e
       event.channel.send_message e.message
@@ -40,7 +30,7 @@ module Commands
     desc = "Show the number of Players Online on the **SPECIFIED** world, divided by a **CUSTOM** level's range"
     usage = "'#{ENV['DISCORD_PREFIX']}online_on <WORLD NAME>' on a chat channel"
     command :online_on, { min_args: 1, description: desc, usage: usage } do |event, world_name|
-      who_is_online_command(event, world_name)
+      TibiaUtils::Online.who_is_online_command(event, world_name)
 
     rescue CouldntRetrieveResource => e
       event.channel.send_message e.message
@@ -52,7 +42,7 @@ module Commands
     desc = "Show the number of Players Online on #{ENV['TIBIA_WORLD']} divided by level's range"
     usage = "'#{ENV['DISCORD_PREFIX']}online2' on a chat channel"
     command :online2, { description: desc, usage: usage } do |event|
-      who_is_online_command(event, ENV['TIBIA_WORLD'], table_type: 'original')
+      TibiaUtils::Online.who_is_online_command(event, ENV['TIBIA_WORLD'], table_type: 'original')
 
     rescue CouldntRetrieveResource => e
       event.channel.send_message e.message
@@ -64,7 +54,7 @@ module Commands
     desc = "Show the number of Players Online on the **SPECIFIED** world, divided by level's range"
     usage = "'#{ENV['DISCORD_PREFIX']}online_on2 <WORLD NAME>' on a chat channel"
     command :online_on2, { min_args: 1, description: desc, usage: usage } do |event, world_name|
-      who_is_online_command(event, world_name, table_type: 'original')
+      TibiaUtils::Online.who_is_online_command(event, world_name, table_type: 'original')
 
     rescue CouldntRetrieveResource => e
       event.channel.send_message e.message
@@ -86,6 +76,34 @@ module Commands
         embed.add_field({ name: 'Min Level:', value: "**#{min_level}**" })
         embed.add_field({ name: 'Max Level:', value: "**#{max_level}**" })
       end
+    end
+
+    desc = "Split the loot value between the party's members from the 'loots' channel [Last message is default]"
+    usage = "'#{ENV['DISCORD_PREFIX']}loot [2]'"
+    command :loot, { description: desc, usage: usage } do |event, number_of_messages = 1|
+      @disc_utils = DiscordUtils.new(bot: event.bot)
+
+      loots_channel_messages = @disc_utils.get_channel_messages(channel_name: 'loots', number_of_messages: number_of_messages)
+
+      reversed_channel_messages = loots_channel_messages.reverse
+      messages_list_size = loots_channel_messages.size
+
+      reversed_channel_messages.each_with_index do |channel_msg, index|
+        event.channel.send_embed do |embed|
+          TibiaUtils::Loot.loot_for_players(embed, channel_msg.content)
+        end
+
+      rescue DataIsntInCorrectFormat => e
+        event.channel.send_message "#{e.message} the #{messages_list_size - index}-nth last message!"
+      end
+
+      event.channel.send_message '**All Done!**'
+
+    rescue CouldntRetrieveResource => e
+      event.channel.send_message e.message
+    rescue => e
+      puts e
+      event.channel.send_message CustomExceptions::DEV_MESSED_UP_MESSAGE
     end
   end
 end

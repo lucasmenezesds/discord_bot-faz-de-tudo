@@ -6,7 +6,6 @@ require_relative '../../../lib/statistics/quantitative_freq_distribution'
 require_relative '../../fixtures/lib/tibia/tibia_data_fixtures'
 
 describe QuantitativeFreqDistribution do
-
   context 'passing the correct parameters' do
     describe '#generate_frequency_table' do
       it 'should return the expected hash when the parameters are sent' do

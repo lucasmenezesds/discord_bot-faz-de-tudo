@@ -14,11 +14,11 @@ describe TibiaDataParser do
     end
   end
 
-  let(:parsed_guild_json) do
-    File.open('spec/fixtures/lib/tibia/guild_data.json') do |file|
-      JSON.parse(file.read)
-    end
-  end
+  # let(:parsed_guild_json) do
+  #   File.open('spec/fixtures/lib/tibia/guild_data.json') do |file|
+  #     JSON.parse(file.read)
+  #   end
+  # end
 
   context 'with a valid json object' do
     describe '#players_online' do
@@ -29,13 +29,13 @@ describe TibiaDataParser do
       end
     end
 
-    describe '#online_from_guild' do
-      it 'should return an array of players' do
-        result = described_class.online_from_guild(json_data: parsed_guild_json)
-
-        expect(result).to eql(TibiaDataFixtures.success_guild_array)
-      end
-    end
+    # describe '#online_from_guild' do
+    #   it 'should return an array of players' do
+    #     result = described_class.online_from_guild(json_data: parsed_guild_json)
+    #
+    #     expect(result).to eql(TibiaDataFixtures.success_guild_array)
+    #   end
+    # end
   end
 
   context 'with a invalid json object' do

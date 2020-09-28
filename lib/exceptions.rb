@@ -11,4 +11,12 @@ module CustomExceptions
       super(msg)
     end
   end
+
+  # The Data received is not correct
+  class DataIsntInCorrectFormat < StandardError
+    def initialize(msg = 'The data received is not correct', exception_type = 'wrong_data')
+      @exception_type = exception_type
+      super(msg)
+    end
+  end
 end
