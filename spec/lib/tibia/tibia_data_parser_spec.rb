@@ -25,7 +25,7 @@ describe TibiaDataParser do
       it 'should return an array of players' do
         result = described_class.players_online(json_data: parsed_world_json)
 
-        expect(result).to eql(TibiaDataFixtures.success_players_array)
+        expect(result).to eql(TibiaDataFixtures.successful_players_data)
       end
     end
 

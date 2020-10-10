@@ -11,4 +11,23 @@ module GenericUtils
 
     final_number
   end
+
+  def self.list_files(directory)
+    return Dir.entries(directory) if directory
+
+    []
+  end
+
+  def self.delete_all_files(full_path_directory)
+    return false unless full_path_directory
+
+    list_files(full_path_directory).each do |file_name|
+      next if %w[. .. .gitkeep].include?(file_name)
+
+      full_path_file = "#{full_path_directory}#{file_name}"
+      File.delete(full_path_file) if File.exist?(full_path_file)
+    end
+
+    true
+  end
 end
