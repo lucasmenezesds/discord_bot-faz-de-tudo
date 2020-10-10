@@ -14,26 +14,27 @@ module Commands
     include CustomExceptions
     include TibiaUtils
 
-    desc = "Show the number of Players Online on #{ENV['TIBIA_WORLD']} divided by a **CUSTOM** level's range"
-    usage = "'#{ENV['DISCORD_PREFIX']}online' on a chat channel"
-    command :online, { description: desc, usage: usage } do |event|
-      TibiaUtils::Online.who_is_online_command(event, ENV['TIBIA_WORLD'])
+    ## ONLINE COMMANDS ##
 
-    rescue CouldntRetrieveResource => e
-      event.channel.send_message e.message
+    def self.who_is_online_command(event, world_name, table_type: 'custom')
+      embed_fields, players_online = TibiaUtils::Online.online_players_table(world_name, table_type: table_type)
 
-    rescue => e
-      puts e
-      event.channel.send_message CustomExceptions::DEV_MESSED_UP_MESSAGE
+      msg_color = TibiaMessageHelper.color_per_number(players_online)
+
+      event.channel.send_embed do |embed|
+        TibiaMessageHelper.build_embed_table(embed, embed_fields, msg_color, players_online, world_name)
+      end
     end
 
-    desc = "Show the number of Players Online on the **SPECIFIED** world, divided by a **CUSTOM** level's range"
-    usage = "'#{ENV['DISCORD_PREFIX']}online_on <WORLD NAME>' on a chat channel"
-    command :online_on, { min_args: 1, description: desc, usage: usage } do |event, world_name|
-      TibiaUtils::Online.who_is_online_command(event, world_name)
+    desc = "Show the number of Players Online on #{ENV['TIBIA_WORLD']} divided by a **CUSTOM** level's range"
+    usage = "'#{ENV['DISCORD_PREFIX']}online' on a chat channel"
+    command :online, { description: desc, usage: usage } do |event, word_name = nil|
+      word_name = ENV['TIBIA_WORLD'] if word_name.nil?
+      who_is_online_command(event, word_name)
 
     rescue CouldntRetrieveResource => e
       event.channel.send_message e.message
+
     rescue => e
       puts e
       event.channel.send_message CustomExceptions::DEV_MESSED_UP_MESSAGE
@@ -41,8 +42,9 @@ module Commands
 
     desc = "Show the number of Players Online on #{ENV['TIBIA_WORLD']} divided by level's range"
     usage = "'#{ENV['DISCORD_PREFIX']}online2' on a chat channel"
-    command :online2, { description: desc, usage: usage } do |event|
-      TibiaUtils::Online.who_is_online_command(event, ENV['TIBIA_WORLD'], table_type: 'original')
+    command :online2, { description: desc, usage: usage } do |event, world_name = nil|
+      world_name = ENV['TIBIA_WORLD'] if world_name.nil?
+      who_is_online_command(event, world_name, table_type: 'original')
 
     rescue CouldntRetrieveResource => e
       event.channel.send_message e.message
@@ -51,18 +53,9 @@ module Commands
       event.channel.send_message CustomExceptions::DEV_MESSED_UP_MESSAGE
     end
 
-    desc = "Show the number of Players Online on the **SPECIFIED** world, divided by level's range"
-    usage = "'#{ENV['DISCORD_PREFIX']}online_on2 <WORLD NAME>' on a chat channel"
-    command :online_on2, { min_args: 1, description: desc, usage: usage } do |event, world_name|
-      TibiaUtils::Online.who_is_online_command(event, world_name, table_type: 'original')
+    ## END ONLINE COMMANDS ##
 
-    rescue CouldntRetrieveResource => e
-      event.channel.send_message e.message
-    rescue => e
-      puts e
-      event.channel.send_message CustomExceptions::DEV_MESSED_UP_MESSAGE
-    end
-
+    ## SHARE XP COMMAND ##
     desc = "Show the player's levels that you'll be able to share xp in a party"
     usage = "'#{ENV['DISCORD_PREFIX']}sharexp <150>'"
     command :sharexp, { description: desc, usage: usage } do |event, level|
@@ -78,6 +71,7 @@ module Commands
       end
     end
 
+    ## LOOT COMMAND ##
     desc = "Split the loot value between the party's members from the 'loots' channel [Last message is default]"
     usage = "'#{ENV['DISCORD_PREFIX']}loot [2]'"
     command :loot, { description: desc, usage: usage } do |event, number_of_messages = 1|

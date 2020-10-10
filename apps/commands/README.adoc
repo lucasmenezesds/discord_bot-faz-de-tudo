@@ -3,21 +3,25 @@
 [NOTE]
 All the commands listed are without the bot's prefix.
 
+[NOTE2]
+`<param>` => Obligatory parameter
+
+`[param]` => Optional parameter
+
 == Tibia
+
 === Available Commands
 
-`online` => Show a customized table with the number of players online on the world that was set.
+`online [world name]` => Show a customized table with the number of players online on the world (If nothing is passed as param then the world will be the one set on the ENV file).
 
-`online2` => Show a standard frequency table with the number of players online on the world that was set.
+`online2 [world name]` => Show a standard frequency table with the number of players online on the world (If nothing is passed as param then the world will be the one set on the ENV file).
 
-`online_on <world name>` => Show a customized table with the number of players online on the world that the name was passed.
+`sharexp <level>` => Show the level's range to be able to share xp in a party
 
-`online2_on <world name>` => Show a standard frequency table with the number of players online on the world that the name was passed.
-
-`sharexp <100>` => Show the level's range to be able to share xp in a party
+`loot [number]` => Will split the profit (or waste) in even parts for the members of the party. (Param: The Number of X last messages)`
 
 == Utils
 
 `my_id` => return a message with you discord id on the discord's group
 
-`prune <100>` => delete the number of messages passed in the channel the command was sent
+`prune <number>` => delete the number of messages passed in the channel the command was sent (Param: Last X messages).

@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
 require 'httparty'
-if ENV['BOT_ENV'] == 'development'
+if %w[development test].include? ENV['BOT_ENV']
   require 'dotenv'
   Dotenv.load
 end
+
 # TibiaData API Consumer
 class TibiaDataApi
   include HTTParty

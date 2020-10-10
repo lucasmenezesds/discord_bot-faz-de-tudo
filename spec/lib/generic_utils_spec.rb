@@ -8,7 +8,6 @@ describe GenericUtils do
   let(:working_directory) { "#{Dir.pwd}/fixtures/discord_attachment/" }
 
   context 'Successful Cases' do
-
     describe '#prettify_number' do
       it 'should return the number with a comma in the thousands' do
         result = described_class.prettify_number(510_250)

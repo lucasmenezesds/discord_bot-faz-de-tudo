@@ -56,15 +56,5 @@ module TibiaUtils
 
       tibia_data_consumer.world_data
     end
-
-    def self.who_is_online_command(event, world_name, table_type: 'custom')
-      embed_fields, players_online = TibiaUtils::Online.online_players_table(world_name, table_type: table_type)
-
-      msg_color = TibiaMessageHelper.color_per_number(players_online)
-
-      event.channel.send_embed do |embed|
-        TibiaMessageHelper.build_embed_table(embed, embed_fields, msg_color, players_online, world_name)
-      end
-    end
   end
 end
