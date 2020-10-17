@@ -5,7 +5,7 @@ require 'rspec'
 require_relative '../../lib/generic_utils'
 
 describe GenericUtils do
-  let(:working_directory) { "#{Dir.pwd}/fixtures/discord_attachment/" }
+  let(:working_directory) { "#{Dir.pwd}/spec/fixtures/discord_attachment/" }
 
   context 'Successful Cases' do
     describe '#prettify_number' do
