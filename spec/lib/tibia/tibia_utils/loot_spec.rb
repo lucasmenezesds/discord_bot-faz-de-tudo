@@ -4,7 +4,7 @@ require 'rspec'
 require 'json'
 
 require_relative '../../../../lib/tibia/tibia_utils/loot'
-require_relative '../../../fixtures/lib/tibia/tibia_data_fixtures'
+require_relative '../../../fixtures/lib/tibia_utils/loot_data_fixtures'
 require_relative '../../../../lib/exceptions'
 require_relative '../../../mock/embed_mock'
 
@@ -13,28 +13,28 @@ describe TibiaUtils::Loot do
     shared_examples 'for the following number of players' do |number_of_players|
       describe '#parse_loot_message' do
         it "should return the parsed loot message for #{number_of_players} players" do
-          loot_msg = TibiaDataFixtures.send("loot_message_#{number_of_players}_players")
+          loot_msg = TibiaUtilsLootDataFixtures.send("loot_message_#{number_of_players}_players")
 
           info_hash = TibiaUtils::Loot.parse_loot_message(loot_msg)
 
-          expect(info_hash).to eql(TibiaDataFixtures.send("parsed_loot_message_#{number_of_players}_players"))
+          expect(info_hash).to eql(TibiaUtilsLootDataFixtures.send("parsed_loot_message_#{number_of_players}_players"))
         end
       end
 
       describe '#share_hunt_profit' do
         it "should return a hash with the expected values for #{number_of_players} players" do
-          parsed_loot = TibiaDataFixtures.send("parsed_loot_message_#{number_of_players}_players")
+          parsed_loot = TibiaUtilsLootDataFixtures.send("parsed_loot_message_#{number_of_players}_players")
           result = TibiaUtils::Loot.share_hunt_profit(parsed_loot)
 
-          expect(result).to eql(TibiaDataFixtures.send("final_balance_for_#{number_of_players}_players"))
+          expect(result).to eql(TibiaUtilsLootDataFixtures.send("final_balance_for_#{number_of_players}_players"))
         end
 
-        if number_of_players != 2
+        if number_of_players != 2 && number_of_players != '4_v2'
           it "should return a hash with the expected values for #{number_of_players} players MULTIPLE PAYMENTS" do
-            parsed_loot = TibiaDataFixtures.send("parsed_loot_message_#{number_of_players}_players_with_multiple_payments")
+            parsed_loot = TibiaUtilsLootDataFixtures.send("parsed_loot_message_#{number_of_players}_players_with_multiple_payments")
             result = TibiaUtils::Loot.share_hunt_profit(parsed_loot)
 
-            expect(result).to eql(TibiaDataFixtures.send("final_balance_for_#{number_of_players}_players_with_multiple_payments"))
+            expect(result).to eql(TibiaUtilsLootDataFixtures.send("final_balance_for_#{number_of_players}_players_with_multiple_payments"))
           end
         end
       end
@@ -43,10 +43,11 @@ describe TibiaUtils::Loot do
     include_examples 'for the following number of players', 2
     include_examples 'for the following number of players', 3
     include_examples 'for the following number of players', 4
+    include_examples 'for the following number of players', '4_v2'
 
     describe '#valid_loot_message?' do
       it 'should return true' do
-        parsed_loot = TibiaDataFixtures.parsed_loot_message_4_players
+        parsed_loot = TibiaUtilsLootDataFixtures.parsed_loot_message_4_players
 
         result = TibiaUtils::Loot.valid_loot_message?(parsed_loot)
 
@@ -56,16 +57,16 @@ describe TibiaUtils::Loot do
 
     describe '#calculate_loot_for_players' do
       it 'should return a hash having the final data for building the message' do
-        loot_message = TibiaDataFixtures.loot_message_4_players
+        loot_message = TibiaUtilsLootDataFixtures.loot_message_4_players
 
         result = TibiaUtils::Loot.calculate_loot_for_players(loot_message)
-        expect(result).to eq TibiaDataFixtures.final_balance_for_4_players
+        expect(result).to eq TibiaUtilsLootDataFixtures.final_balance_for_4_players
       end
     end
 
     describe '#loot_for_players' do
       it 'should return call each embed message method once' do
-        loot_message = TibiaDataFixtures.loot_message_4_players
+        loot_message = TibiaUtilsLootDataFixtures.loot_message_4_players
 
         @embed_mock = DiscordMock::Embed.new
 
@@ -85,7 +86,7 @@ describe TibiaUtils::Loot do
   context 'with a invalid loot message' do
     describe '#valid_loot_message?' do
       it 'should return false when the loot message have a missing/wrong key on players_balance' do
-        parsed_loot = TibiaDataFixtures.invalid_parsed_loot_message_players_balance
+        parsed_loot = TibiaUtilsLootDataFixtures.invalid_parsed_loot_message_players_balance
 
         result = TibiaUtils::Loot.valid_loot_message?(parsed_loot)
 
@@ -93,7 +94,7 @@ describe TibiaUtils::Loot do
       end
 
       it 'should return false when the loot message have a missing key on hunt_info' do
-        parsed_loot = TibiaDataFixtures.invalid_parsed_loot_message_hunt_info
+        parsed_loot = TibiaUtilsLootDataFixtures.invalid_parsed_loot_message_hunt_info
 
         result = TibiaUtils::Loot.valid_loot_message?(parsed_loot)
 

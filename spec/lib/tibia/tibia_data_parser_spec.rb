@@ -4,7 +4,7 @@ require 'rspec'
 require 'json'
 
 require_relative '../../../lib/tibia/tibia_data_parser.rb'
-require_relative '../../fixtures/lib/tibia/tibia_data_fixtures.rb'
+require_relative '../../fixtures/lib/tibia_utils/online_data_fixtures.rb'
 require_relative '../../../lib/exceptions'
 
 describe TibiaDataParser do
@@ -25,7 +25,7 @@ describe TibiaDataParser do
       it 'should return an array of players' do
         result = described_class.players_online(json_data: parsed_world_json)
 
-        expect(result).to eql(TibiaDataFixtures.successful_players_data)
+        expect(result).to eql(TibiaUtilsOnlineDataFixtures.successful_players_data)
       end
     end
 
@@ -33,7 +33,7 @@ describe TibiaDataParser do
     #   it 'should return an array of players' do
     #     result = described_class.online_from_guild(json_data: parsed_guild_json)
     #
-    #     expect(result).to eql(TibiaDataFixtures.success_guild_array)
+    #     expect(result).to eql(TibiaUtilsOnlineDataFixtures.success_guild_array)
     #   end
     # end
   end

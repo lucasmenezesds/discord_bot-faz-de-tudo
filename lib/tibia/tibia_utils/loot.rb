@@ -50,7 +50,7 @@ module TibiaUtils
         fix_player_balance = if player_balance.negative?
                                player_balance.abs + share_per_player
                              else
-                               player_balance - share_per_player
+                               (player_balance - share_per_player).abs
                              end
 
         if player_balance < share_per_player

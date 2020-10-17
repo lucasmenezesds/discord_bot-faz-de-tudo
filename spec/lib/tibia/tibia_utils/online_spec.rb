@@ -6,7 +6,7 @@ require 'json'
 require_relative '../../../../lib/tibia/tibia_utils/online'
 require_relative '../../../../lib/tibia/tibia_data_api'
 require_relative '../../../../lib/exceptions'
-require_relative '../../../fixtures/lib/tibia/tibia_data_fixtures'
+require_relative '../../../fixtures/lib/tibia_utils/online_data_fixtures'
 
 describe TibiaUtils::Online do
   let(:parsed_world_json) do
@@ -18,17 +18,17 @@ describe TibiaUtils::Online do
   context 'with successful payloads' do
     describe '#level_of_players_online' do
       it 'should return an array with the expected values' do
-        players_list = TibiaDataFixtures.successful_players_data[:players_list]
+        players_list = TibiaUtilsOnlineDataFixtures.successful_players_data[:players_list]
 
         result = described_class.level_of_players_online(players_list: players_list)
 
-        expect(result).to eql(TibiaDataFixtures.success_players_level_array)
+        expect(result).to eql(TibiaUtilsOnlineDataFixtures.success_players_level_array)
       end
     end
 
     describe '#online_players_table' do
       it 'should return an array with the expected values for custom table and default world' do
-        table_data = TibiaDataFixtures.custom_table_data
+        table_data = TibiaUtilsOnlineDataFixtures.custom_table_data
 
         data_api_mock = TibiaDataApi.new
 
@@ -41,7 +41,7 @@ describe TibiaUtils::Online do
       end
 
       it 'should return an array with the expected values for default table and custom world' do
-        table_data = TibiaDataFixtures.table_data
+        table_data = TibiaUtilsOnlineDataFixtures.table_data
 
         data_api_mock = TibiaDataApi.new
 
