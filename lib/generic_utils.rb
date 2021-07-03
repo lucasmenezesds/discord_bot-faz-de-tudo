@@ -1,13 +1,17 @@
 # frozen_string_literal: true
 
+require_relative 'exceptions'
+
 # Generic Utils Module
 module GenericUtils
+  include ::CustomExceptions
+
   def self.prettify_number(number)
     negative_flag = number.negative?
     number_str = number.abs.to_s
     final_number = number_str.reverse.gsub(/...(?=.)/, '\&,').reverse
 
-    final_number = final_number.prepend('-') if negative_flag
+    final_number.prepend('-') if negative_flag
 
     final_number
   end
@@ -29,5 +33,18 @@ module GenericUtils
     end
 
     true
+  end
+
+  def self.file_content(full_path_file)
+    file_size = File.size(full_path_file).to_f / 1024**2 # File size in MiB (Mebibyte)
+    # formatted_file_size = '%.2f' % file_size
+
+    raise DataIsTooBigToProcess if file_size > 5
+    raise DataIsNotOnTheExpectedFormat if File.extname(full_path_file) != '.txt'
+
+    File.open(full_path_file).read
+  rescue StandardError => e
+    puts "ERROR AT #load_file_content //n #{e}"
+    raise CouldntRetrieveResource, "I couldn't get file's content"
   end
 end

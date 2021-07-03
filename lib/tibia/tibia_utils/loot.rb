@@ -96,6 +96,9 @@ module TibiaUtils
       final_hash
     end
 
+    # TODO: Improve this piece of code later.
+    # rubocop:disable Metrics/CyclomaticComplexity
+    # rubocop:disable Metrics/PerceivedComplexity
     def self.valid_loot_message?(parsed_loot)
       parsed_loot_keys_list = %w[hunt_info players_balance]
       hunt_info_keys_list = ['Session data', 'Session', 'Loot Type', 'Loot', 'Supplies', 'Balance']
@@ -126,6 +129,9 @@ module TibiaUtils
 
       (hunt_info_keys_validation && players_balance_keys_validation)
     end
+
+    # rubocop:enable Metrics/CyclomaticComplexity
+    # rubocop:enable Metrics/PerceivedComplexity
 
     def self.calculate_loot_for_players(loot_message)
       parsed_loot = parse_loot_message(loot_message)

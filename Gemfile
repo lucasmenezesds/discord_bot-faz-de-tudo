@@ -10,7 +10,8 @@ group :development do
   gem 'guard-rspec', require: false
   # gem 'rerun'
   gem 'pry'
-  gem 'rubocop'
+  gem 'rubocop', require: false
+  gem 'rubocop-rspec', require: false
   gem 'pry'
   gem 'simplecov', require: false
 end

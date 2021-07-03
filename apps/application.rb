@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'discordrb'
+
 if ENV['BOT_ENV'] == 'development'
   require 'dotenv'
   Dotenv.load

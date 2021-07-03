@@ -1,6 +1,15 @@
 require 'simplecov'
 
-SimpleCov.start 'rails' # TODO: create a discord_bot profile
+SimpleCov.profiles.define 'discord_bot' do
+  add_filter 'spec/'
+
+  add_group 'Fixtures', 'fixtures'
+  add_group 'Libraries', 'lib'
+end
+
+SimpleCov.start 'discord_bot'
+
+$LOAD_PATH.unshift File.expand_path('../lib', __dir__)
 
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
@@ -33,8 +42,8 @@ RSpec.configure do |config|
   # triggering implicit auto-inclusion in groups with matching metadata.
   config.shared_context_metadata_behavior = :apply_to_host_groups
 
-# The settings below are suggested to provide a good initial experience
-# with RSpec, but feel free to customize to your heart's content.
+  # The settings below are suggested to provide a good initial experience
+  # with RSpec, but feel free to customize to your heart's content.
 =begin
   # This allows you to limit a spec run to individual examples or groups
   # you care about by tagging them with `:focus` metadata. When nothing
@@ -86,4 +95,19 @@ RSpec.configure do |config|
   # as the one that triggered the failure.
   Kernel.srand config.seed
 =end
+end
+
+def load_data_file(*name)
+  JSON.parse(File.read("#{File.dirname(__FILE__)}/fixtures/discord_data/json_examples/#{name.join('/')}.json"))
+end
+
+# Creates a helper method that gives access to a particular fixture's data.
+# @example Load the JSON file at "spec/data/folder/filename.json" as a "data_name" helper method
+#   fixture :data_name, [:folder, :filename]
+# @param name [Symbol] The name the helper method should have
+# @param path [Array<Symbol>] The path to the data file to load, originating from "spec/data"
+def fixture(name, path)
+  let name do
+    load_data_file(*path)
+  end
 end

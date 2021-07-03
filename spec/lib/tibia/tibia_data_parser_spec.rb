@@ -3,8 +3,8 @@
 require 'rspec'
 require 'json'
 
-require_relative '../../../lib/tibia/tibia_data_parser.rb'
-require_relative '../../fixtures/lib/tibia_utils/online_data_fixtures.rb'
+require_relative '../../../lib/tibia/tibia_data_parser'
+require_relative '../../fixtures/lib/tibia_utils/online_data_fixtures'
 require_relative '../../../lib/exceptions'
 
 describe TibiaDataParser do

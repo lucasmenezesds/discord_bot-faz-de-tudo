@@ -1,4 +1,4 @@
-= Commands Modules
+= Commands
 
 [NOTE]
 All the commands listed are without the bot's prefix.
@@ -10,15 +10,68 @@ All the commands listed are without the bot's prefix.
 
 == Tibia
 
-=== Available Commands
+=== Loot
 
-`online [world name]` => Show a customized table with the number of players online on the world (If nothing is passed as param then the world will be the one set on the ENV file).
+Will split the profit (or waste) in even parts for the members of the party.
 
-`online2 [world name]` => Show a standard frequency table with the number of players online on the world (If nothing is passed as param then the world will be the one set on the ENV file).
 
-`sharexp <level>` => Show the level's range to be able to share xp in a party
+`<bot_prefix>loot [number_of_messages]`
 
-`loot [number]` => Will split the profit (or waste) in even parts for the members of the party. (Param: The Number of X last messages)`
+_Check the setup section_
+
+**Usage Example:**
+
+. `-loot`
+. `-loot 3`
+
+==== Setup
+
+- Create a Channel called `loots` in your server
+- Copy the "Party Hunt" from tibia and paste it on the `loots` channel
+- All Done!
+
+[NOTE]
+Your Discord server should have a channel called `loots`, if it doesn't, check the code and change the name to suit your discord's server.
+
+=== Online / Online2
+
+==== Online
+
+Show a customized table with the number of players online on the world.
+
+_If nothing is passed as param then the world will be the one set on the ENV file._
+
+`<bot_prefix>online [world_name]`
+
+**Usage Example:**
+
+. `-online antica`
+
+. `-online`
+
+==== Online2
+
+Show a standard frequency table with the number of players online on the world.
+
+_If nothing is passed as param then the world will be the one set on the ENV file._
+
+`<bot_prefix>online2 [world_name]`
+
+**Usage Example:**
+
+. `-online2 antica`
+
+. `-online2`
+
+=== ShareXP
+
+Show the level's range to be able to share xp in a party
+
+`sharexp <your_level>`
+
+**Usage Example:**
+
+. `-sharexp 150`
 
 == Utils
 
