@@ -11,4 +11,29 @@ module CustomExceptions
       super(msg)
     end
   end
+
+  # The Data received is not correct
+  class DataIsntInCorrectFormat < StandardError
+    def initialize(msg = 'The data received is not correct', exception_type = 'wrong_data')
+      @exception_type = exception_type
+      super(msg)
+    end
+  end
+
+  # The Data is too big to process
+  class DataIsTooBigToProcess < StandardError
+    def initialize(msg = 'The data received is too big to process', exception_type = 'data_too_big')
+      @exception_type = exception_type
+      super(msg)
+    end
+  end
+
+  # The Data is too big to process
+  class DataIsNotOnTheExpectedFormat < StandardError
+    def initialize(msg = 'The data received is not in the expected format', exception_type = 'wrong_data_type', method: nil)
+      @exception_type = exception_type
+      @method_name = method unless method.nil?
+      super(msg)
+    end
+  end
 end

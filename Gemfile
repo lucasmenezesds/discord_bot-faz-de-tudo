@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.7.0'
+ruby '2.7.3'
 
 gem 'discordrb'
 gem 'httparty', '~> 0.18.0'
@@ -9,7 +9,9 @@ group :development do
   gem 'guard', require: false
   gem 'guard-rspec', require: false
   # gem 'rerun'
-  gem 'rubocop'
+  gem 'pry'
+  gem 'rubocop', require: false
+  gem 'rubocop-rspec', require: false
   gem 'pry'
   gem 'simplecov', require: false
 end

@@ -2,7 +2,6 @@
 
 # Quantitative Frequency Distribution Class
 class QuantitativeFreqDistribution
-
   def initialize(data_array:)
     @data_array = data_array.sort
     @max_value = @data_array.max
