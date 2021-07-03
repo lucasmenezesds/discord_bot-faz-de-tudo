@@ -26,7 +26,7 @@
 
 === Development Mode
 
-For development it's the gem Dotenv is used, so you should run the project as following:
+For development environment the gem Dotenv is used, so you should run the project as following:
 
 $ `BOT_ENV=development bundle exec ruby apps/application.rb`
 
