@@ -1,1 +1,1 @@
-worker: ruby apps/application.rb
+worker: ruby app/application.rb

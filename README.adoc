@@ -5,7 +5,7 @@
 . Set the ENV variables
 .. Use the `env.template` as example.
 
-. Run the bot $ `ruby apps/application.rb`
+. Run the bot $ `ruby app/application.rb`
 .. Or check the development mode session.
 
 === ENV variables
@@ -28,7 +28,7 @@
 
 For development environment the gem Dotenv is used, so you should run the project as following:
 
-$ `BOT_ENV=development bundle exec ruby apps/application.rb`
+$ `BOT_ENV=development bundle exec ruby app/application.rb`
 
 == Modules
 
@@ -37,4 +37,4 @@ The Existing Modules for the bot are:
 * Tibia
 * Utils
 
-link:/apps/commands#commands-modules[Read More Here!]
+link:/app/commands#commands-modules[Read More Here!]
