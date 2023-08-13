@@ -1,9 +1,8 @@
 source 'https://rubygems.org'
-ruby '2.7.3'
+ruby '3.2.2'
 
-gem 'discordrb'
-gem 'httparty', '~> 0.18.0'
-gem "lita-heroku-keepalive"
+gem 'discordrb', '~> 3.5'
+gem 'httparty', '~> 0.21.0'
 
 group :development do
   gem 'guard', require: false
@@ -12,11 +11,10 @@ group :development do
   gem 'pry'
   gem 'rubocop', require: false
   gem 'rubocop-rspec', require: false
-  gem 'pry'
   gem 'simplecov', require: false
 end
 
 group :test, :development do
+  gem 'dotenv', '~> 2.8'
   gem 'rspec'
-  gem 'dotenv', '~> 2.4'
 end
