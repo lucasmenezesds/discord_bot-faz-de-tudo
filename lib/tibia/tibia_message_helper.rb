@@ -22,8 +22,8 @@ module TibiaMessageHelper
     embed.title = "Players on #{world_name}"
     embed.color = msg_color
     embed.description = "\n__Total of Players__: **#{players_online}**\n"
-    embed.add_field({ name: 'Levels of the Players', value: "```#{final_table}```" })
-    embed.add_field({ name: "Our Level's Range", value: "```#{highlight_text}```" })
+    embed.add_field(name: 'Levels of the Players', value: "```#{final_table}```")
+    embed.add_field(name: "Our Level's Range", value: "```#{highlight_text}```")
   end
 
   def self.build_embed_message_for_loot(embed, loot_message)
@@ -50,8 +50,8 @@ module TibiaMessageHelper
       debt_message += "```Transfer #{amount} to #{to}```\n"
     end
 
-    embed.add_field({ name: 'Transfers', value: transfer_message })
+    embed.add_field(name: 'Transfers', value: transfer_message)
 
-    embed.add_field({ name: 'Debts', value: debt_message }) unless centralizing_payments.empty?
+    embed.add_field(name: 'Debts', value: debt_message) unless centralizing_payments.empty?
   end
 end

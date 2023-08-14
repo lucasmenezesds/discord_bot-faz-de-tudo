@@ -66,8 +66,8 @@ module Commands
       event.channel.send_embed do |embed|
         embed.title = "Level's Range"
         embed.description = "\n__Your Level__: **#{level}**\n"
-        embed.add_field({ name: 'Min Level:', value: "**#{min_level}**" })
-        embed.add_field({ name: 'Max Level:', value: "**#{max_level}**" })
+        embed.add_field(name: 'Min Level:', value: "**#{min_level}**")
+        embed.add_field(name: 'Max Level:', value: "**#{max_level}**")
       end
     end
 

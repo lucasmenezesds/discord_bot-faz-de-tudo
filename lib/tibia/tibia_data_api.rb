@@ -9,7 +9,7 @@ end
 # TibiaData API Consumer
 class TibiaDataApi
   include HTTParty
-  base_uri 'https://api.tibiadata.com/v2'
+  base_uri 'https://api.tibiadata.com/v3'
 
   def initialize(world: ENV['TIBIA_WORLD'], guild: ENV['TIBIA_GUILD'])
     @world = world
@@ -17,11 +17,11 @@ class TibiaDataApi
   end
 
   def world_data
-    self.class.get("/world/#{@world}.json")
+    self.class.get("/world/#{@world}")
   end
 
   def guild_data
-    self.class.get("/guild/#{normalized_guild_name}.json")
+    self.class.get("/guild/#{normalized_guild_name}")
   end
 
   def normalized_guild_name
