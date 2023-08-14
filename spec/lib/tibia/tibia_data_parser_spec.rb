@@ -9,7 +9,7 @@ require_relative '../../../lib/exceptions'
 
 describe TibiaDataParser do
   let(:parsed_world_json) do
-    File.open('spec/fixtures/lib/tibia/word_data.json') do |file|
+    File.open('spec/fixtures/games/tibia/world_data.json') do |file|
       JSON.parse(file.read)
     end
   end

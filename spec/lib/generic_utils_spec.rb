@@ -23,7 +23,7 @@ describe GenericUtils do
 
         result = described_class.list_files(working_directory)
 
-        expect(result).to eq %w[file.txt .gitkeep . ..]
+        expect(result).to match_array(%w[file.txt .gitkeep . ..])
       end
     end
 
@@ -36,7 +36,7 @@ describe GenericUtils do
         files_list = described_class.list_files(working_directory)
 
         expect(result).to be_truthy
-        expect(files_list).to eq %w[.gitkeep . ..]
+        expect(files_list).to match_array(%w[.gitkeep . ..])
       end
     end
   end

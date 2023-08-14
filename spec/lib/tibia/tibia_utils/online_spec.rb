@@ -10,7 +10,7 @@ require_relative '../../../fixtures/lib/tibia_utils/online_data_fixtures'
 
 describe TibiaUtils::Online do
   let(:parsed_world_json) do
-    File.open('spec/fixtures/lib/tibia/word_data.json') do |file|
+    File.open('spec/fixtures/games/tibia/world_data.json') do |file|
       JSON.parse(file.read)
     end
   end
