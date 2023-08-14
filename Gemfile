@@ -17,4 +17,5 @@ end
 group :test, :development do
   gem 'dotenv', '~> 2.8'
   gem 'rspec'
+  gem 'debug'
 end

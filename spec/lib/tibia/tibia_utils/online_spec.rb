@@ -10,7 +10,7 @@ require_relative '../../../fixtures/lib/tibia_utils/online_data_fixtures'
 
 describe TibiaUtils::Online do
   let(:parsed_world_json) do
-    File.open('spec/fixtures/lib/tibia/word_data.json') do |file|
+    File.open('spec/fixtures/games/tibia/world_data.json') do |file|
       JSON.parse(file.read)
     end
   end
@@ -37,7 +37,7 @@ describe TibiaUtils::Online do
 
         result = described_class.online_players_table
 
-        expect(result).to eql([table_data, 156])
+        expect(result).to eql([table_data, 232])
       end
 
       it 'should return an array with the expected values for default table and custom world' do
@@ -50,7 +50,7 @@ describe TibiaUtils::Online do
 
         result = described_class.online_players_table('world1', table_type: 'normal')
 
-        expect(result).to eql([table_data, 156])
+        expect(result).to eql([table_data, 232])
       end
     end
   end

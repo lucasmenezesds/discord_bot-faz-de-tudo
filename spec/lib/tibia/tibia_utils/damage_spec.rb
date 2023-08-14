@@ -12,7 +12,7 @@ SERVER_LOG_FILE_PATH = "#{Dir.pwd}/spec/fixtures/games/tibia/server_log.txt"
 
 describe TibiaUtils::Damage do
   before do
-    @file_content = File.open(SERVER_LOG_FILE_PATH).read
+    @file_content = File.read(SERVER_LOG_FILE_PATH)
   end
 
   context 'with a valid server log' do

@@ -41,7 +41,7 @@ guard :rspec, cmd: "bundle exec rspec" do
   dsl.watch_spec_files_for(ruby.lib_files)
 
   # watch(%r{^spec/(.+)_spec\.rb$})
-  watch(%r{^apps/(.+)\.rb$}) { |m| "spec/#{m[1]}_spec.rb" }
+  watch(%r{^app/(.+)\.rb$}) { |m| "spec/#{m[1]}_spec.rb" }
   watch(%r{^lib/(.+)\.rb$}) { |m| "spec/lib/#{m[1]}_spec.rb" }
   watch(%r{^commands/(.+)\.rb$}) { |m| "spec/commands/#{m[1]}_spec.rb" }
 end

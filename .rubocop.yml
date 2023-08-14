@@ -22,14 +22,13 @@ Metrics/AbcSize:
 Metrics/BlockLength:
   CountComments: false  # count full line comments?
   Max: 25
-  ExcludedMethods: [ ]
   Exclude:
     - "spec/**/*"
 
-Metrics/LineLength:
-  Description: 'Limit lines to 80 characters.'
+Layout/LineLength:
+  Description: 'Limit lines to 160 characters.'
   Max: 160
-  IgnoredPatterns: [ '\A#' ]
+  AllowedPatterns: [ '\A#' ]
 
 Style/DateTime:
   Enabled: false

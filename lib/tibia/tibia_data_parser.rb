@@ -7,12 +7,13 @@ module TibiaDataParser
   include ::CustomExceptions
 
   def self.players_online(json_data:)
-    if !json_data || !json_data['world'] || !json_data['world']['players_online'] || !json_data['world']['world_information']['players_online']
-      raise CouldntRetrieveResource, "I couldn't get the data from this world"
-    end
+    players_online = json_data&.dig('worlds', 'world', 'players_online')
+    players_list = json_data&.dig('worlds', 'world', 'online_players')
 
-    { players_online: json_data['world']['world_information']['players_online'],
-      players_list: json_data['world']['players_online'] }
+    raise CouldntRetrieveResource, "I couldn't get the data from this world" if players_online.nil? || players_list.nil?
+
+    { players_online: players_online,
+      players_list: players_list }
   end
 
   def self.online_from_guild(json_data:)
