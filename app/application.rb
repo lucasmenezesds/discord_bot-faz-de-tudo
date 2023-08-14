@@ -9,9 +9,9 @@ end
 require_relative 'commands/tibia'
 require_relative 'commands/utilities'
 
-@bot = Discordrb::Commands::CommandBot.new(token: ENV['DISCORD_TOKEN'],
-                                           client_id: ENV['DISCORD_CLIENT_ID'],
-                                           prefix: ENV['DISCORD_PREFIX'])
+@bot = Discordrb::Commands::CommandBot.new(token: ENV.fetch('DISCORD_TOKEN', nil),
+                                           client_id: ENV.fetch('DISCORD_CLIENT_ID', nil),
+                                           prefix: ENV.fetch('DISCORD_PREFIX', nil))
 
 @bot.message(with_text: 'ping') do |event|
   event.send_message('Pong')

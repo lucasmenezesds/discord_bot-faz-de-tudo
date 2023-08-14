@@ -26,26 +26,23 @@ module Commands
       end
     end
 
-    desc = "Show the number of Players Online on #{ENV['TIBIA_WORLD']} divided by a **CUSTOM** level's range"
-    usage = "'#{ENV['DISCORD_PREFIX']}online' on a chat channel"
+    desc = "Show the number of Players Online on #{ENV.fetch('TIBIA_WORLD', nil)} divided by a **CUSTOM** level's range"
+    usage = "'#{ENV.fetch('DISCORD_PREFIX', nil)}online' on a chat channel"
     command :online, { description: desc, usage: usage } do |event, word_name = nil|
-      word_name = ENV['TIBIA_WORLD'] if word_name.nil?
+      word_name = ENV.fetch('TIBIA_WORLD', nil) if word_name.nil?
       who_is_online_command(event, word_name)
-
     rescue CouldntRetrieveResource => e
       event.channel.send_message e.message
-
     rescue => e
       puts e
       event.channel.send_message CustomExceptions::DEV_MESSED_UP_MESSAGE
     end
 
-    desc = "Show the number of Players Online on #{ENV['TIBIA_WORLD']} divided by level's range"
-    usage = "'#{ENV['DISCORD_PREFIX']}online2' on a chat channel"
+    desc = "Show the number of Players Online on #{ENV.fetch('TIBIA_WORLD', nil)} divided by level's range"
+    usage = "'#{ENV.fetch('DISCORD_PREFIX', nil)}online2' on a chat channel"
     command :online2, { description: desc, usage: usage } do |event, world_name = nil|
-      world_name = ENV['TIBIA_WORLD'] if world_name.nil?
+      world_name = ENV.fetch('TIBIA_WORLD', nil) if world_name.nil?
       who_is_online_command(event, world_name, table_type: 'original')
-
     rescue CouldntRetrieveResource => e
       event.channel.send_message e.message
     rescue => e
@@ -57,7 +54,7 @@ module Commands
 
     ## SHARE XP COMMAND ##
     desc = "Show the player's levels that you'll be able to share xp in a party"
-    usage = "'#{ENV['DISCORD_PREFIX']}sharexp <150>'"
+    usage = "'#{ENV.fetch('DISCORD_PREFIX', nil)}sharexp <150>'"
     command :sharexp, { description: desc, usage: usage } do |event, level|
       received_level = level.to_i
       min_level = (received_level * 0.6667).to_i
@@ -73,7 +70,7 @@ module Commands
 
     ## LOOT COMMAND ##
     desc = "Split the loot value between the party's members from the 'loots' channel [Last message is default]"
-    usage = "'#{ENV['DISCORD_PREFIX']}loot [2]'"
+    usage = "'#{ENV.fetch('DISCORD_PREFIX', nil)}loot [2]'"
     command :loot, { description: desc, usage: usage } do |event, number_of_messages = 1|
       @disc_utils = DiscordUtils.new(bot: event.bot)
 
@@ -86,13 +83,11 @@ module Commands
         event.channel.send_embed do |embed|
           TibiaUtils::Loot.loot_for_players(embed, channel_msg.content)
         end
-
       rescue DataIsntInCorrectFormat => e
         event.channel.send_message "#{e.message} the #{messages_list_size - index}-nth last message!"
       end
 
       event.channel.send_message '**All Done!**'
-
     rescue CouldntRetrieveResource => e
       event.channel.send_message e.message
     rescue => e

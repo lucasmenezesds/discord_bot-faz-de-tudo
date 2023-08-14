@@ -11,7 +11,7 @@ class TibiaDataApi
   include HTTParty
   base_uri 'https://api.tibiadata.com/v3'
 
-  def initialize(world: ENV['TIBIA_WORLD'], guild: ENV['TIBIA_GUILD'])
+  def initialize(world: ENV.fetch('TIBIA_WORLD', nil), guild: ENV.fetch('TIBIA_GUILD', nil))
     @world = world
     @guild = guild
   end

@@ -29,20 +29,20 @@ module GenericUtils
       next if %w[. .. .gitkeep].include?(file_name)
 
       full_path_file = "#{full_path_directory}#{file_name}"
-      File.delete(full_path_file) if File.exist?(full_path_file)
+      FileUtils.rm_f(full_path_file)
     end
 
     true
   end
 
   def self.file_content(full_path_file)
-    file_size = File.size(full_path_file).to_f / 1024**2 # File size in MiB (Mebibyte)
+    file_size = File.size(full_path_file).to_f / (1024**2) # File size in MiB (Mebibyte)
     # formatted_file_size = '%.2f' % file_size
 
     raise DataIsTooBigToProcess if file_size > 5
     raise DataIsNotOnTheExpectedFormat if File.extname(full_path_file) != '.txt'
 
-    File.open(full_path_file).read
+    File.read(full_path_file)
   rescue StandardError => e
     puts "ERROR AT #load_file_content //n #{e}"
     raise CouldntRetrieveResource, "I couldn't get file's content"

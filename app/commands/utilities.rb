@@ -15,7 +15,7 @@ module Commands
     end
 
     desc = 'Deletes X amount of messages from the channel'
-    usage = "#{ENV['DISCORD_BOT_PREFIX']}prune <number>"
+    usage = "#{ENV.fetch('DISCORD_BOT_PREFIX', nil)}prune <number>"
     command :prune, description: desc, usage: usage do |event, amount|
       return event.respond 'Just the Owner can use this command' unless event.user.owner?
 
