@@ -1,0 +1,3 @@
+#!/bin/bash
+
+BOT_ENV=development bundle exec ruby app/application.rb
