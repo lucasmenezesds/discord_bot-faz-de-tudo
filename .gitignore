@@ -74,3 +74,5 @@ build-iPhoneSimulator/
 .credentials/
 
 *.csv
+
+database_volume/*.db

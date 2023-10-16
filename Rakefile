@@ -2,12 +2,10 @@
 
 require 'rake'
 
-begin
-  require 'rspec/core/rake_task'
-  RSpec::Core::RakeTask.new(:spec)
-  task default: :spec
-rescue LoadError => e
-  puts '=== Error ==='
-  puts e.message
-  puts '============='
+desc 'Database Related Tasks'
+namespace :db do
+  desc 'Run DB migrations'
+  task :migrate do
+    exec 'bundle exec ruby db/migrate.rb'
+  end
 end
