@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'simplecov'
 
 SimpleCov.profiles.define 'discord_bot' do
@@ -7,9 +9,12 @@ SimpleCov.profiles.define 'discord_bot' do
   add_group 'Libraries', 'lib'
 end
 
+ENV['RACK_ENV'] = 'test'
+
 SimpleCov.start 'discord_bot'
 
 $LOAD_PATH.unshift File.expand_path('../lib', __dir__)
+$LOAD_PATH.unshift File.expand_path('../app/models', __dir__)
 
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
